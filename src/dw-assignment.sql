@@ -39,7 +39,7 @@ create table time_dim
  hour int,
  day int,
  week varchar(10),
- month int,
+ month integer,
  quarter varchar(10),
  year int);
 
@@ -123,31 +123,6 @@ select trans_type, bank_name, sum(total_price) as total_price
 from sales_transaction
 group by trans_type, bank_name
 
-/* creating cross-tab for item dimension */
-create table sales_item
-as
-select item_name, man_country, quantity
-from fact_table, item_dim
-where fact_table.item_key = item_dim.item_key
-
-select * from sales_item;
-
-/* listing corresponding SQL for finding corss-tab */
-select sum(quantity) as total_quantity
-from sales_item
-
-select item_name, sum(quantity) as total_quantity
-from sales_item
-group by item_name
-
-select man_country, sum(quantity) as total_quantity
-from sales_item
-group by man_country
-
-select item_name, man_country, sum(quantity) as total_quantity
-from sales_item
-group by item_name, man_country
-
 /* creating cross-tab for customer dimension */
 create table sales_customer
 as
@@ -173,9 +148,77 @@ select name, division, sum(total_price) as total_price
 from sales_customer
 group by name, division
 
+/* creating cross-tab for item dimension */
+create table sales_item
+as
+select item_name, man_country, quantity
+from fact_table, item_dim
+where fact_table.item_key = item_dim.item_key
+
+select * from sales_item;
+
+/* listing corresponding SQL for finding corss-tab */
+select sum(quantity) as total_quantity
+from sales_item
+
+select item_name, sum(quantity) as total_quantity
+from sales_item
+group by item_name
+
+select man_country, sum(quantity) as total_quantity
+from sales_item
+group by man_country
+
+select item_name, man_country, sum(quantity) as total_quantity
+from sales_item
+group by item_name, man_country
+
 /*
 	task5: finding at least 5 important DSS (Decision Support System) reports (one for each dimension)
 			(using SQL cube operation) as bar chart.
 */
 
+/* generating DSS report on transaction typewise buyers count */
+copy (select coalesce(trans_type, 'all trans_type') trans_type, count(*) as total_buyer
+from fact_table, trans_dim
+where fact_table.payment_key = trans_dim.payment_key
+group by cube(trans_type)
+order by total_buyer desc)
+to 'D:\Academic 4-1\CSE453 (High Performance Database System)\dw-assignment\dw-assignment-report\csv\dss_trans_type_buyer.csv'
+delimiter ',' csv header;
 
+/* generating DSS report on divisionwise buyers count */
+copy (select coalesce(division, 'all division') division, count(*) as total_buyer
+from fact_table, customer_dim
+where fact_table.coustomer_key = customer_dim.coustomer_key
+group by cube(division)
+order by total_buyer desc)
+to 'D:\Academic 4-1\CSE453 (High Performance Database System)\dw-assignment\dw-assignment-report\csv\dss_division_buyer.csv'
+delimiter ',' csv header;
+
+/* generating DSS report on quarterwise sales count */
+copy (select coalesce(quarter, 'all quarter') quarter, sum(quantity) as total_quantity
+from fact_table, time_dim
+where fact_table.time_key = time_dim.time_key
+group by cube(quarter)
+order by total_quantity desc)
+to 'D:\Academic 4-1\CSE453 (High Performance Database System)\dw-assignment\dw-assignment-report\csv\dss_quarter_count.csv'
+delimiter ',' csv header;
+
+/* generating DSS report on manufacturer countrywise sales count */
+copy (select coalesce(man_country, 'all man_country') man_country, sum(quantity) as total_quantity
+from fact_table, item_dim
+where fact_table.item_key = item_dim.item_key
+group by cube(man_country)
+order by total_quantity desc)
+to 'D:\Academic 4-1\CSE453 (High Performance Database System)\dw-assignment\dw-assignment-report\csv\dss_man_country_count.csv'
+delimiter ',' csv header;
+
+/* generating DSS report on districtwise sales earning */
+copy (select coalesce(district, 'all district') district, sum(total_price) as total_price
+from fact_table, store_dim
+where fact_table.store_key = store_dim.store_key
+group by cube(district)
+order by total_price desc)
+to 'D:\Academic 4-1\CSE453 (High Performance Database System)\dw-assignment\dw-assignment-report\csv\dss_district_earning.csv'
+delimiter ',' csv header;
