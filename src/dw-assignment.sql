@@ -103,75 +103,75 @@ create table sales_transaction
 as
 select trans_type, bank_name, total_price
 from fact_table, trans_dim
-where fact_table.payment_key = trans_dim.payment_key
+where fact_table.payment_key = trans_dim.payment_key;
 
 select * from sales_transaction;
 
 /* listing corresponding SQL for finding corss-tab */
 select sum(total_price) as total_price
-from sales_transaction
+from sales_transaction;
 
 select trans_type, sum(total_price) as total_price
 from sales_transaction
-group by trans_type
+group by trans_type;
 
 select bank_name, sum(total_price) as total_price
 from sales_transaction
-group by bank_name
+group by bank_name;
 
 select trans_type, bank_name, sum(total_price) as total_price
 from sales_transaction
-group by trans_type, bank_name
+group by trans_type, bank_name;
 
 /* creating cross-tab for customer dimension */
 create table sales_customer
 as
 select name, division, total_price
 from fact_table, customer_dim
-where fact_table.coustomer_key = customer_dim.coustomer_key
+where fact_table.coustomer_key = customer_dim.coustomer_key;
 
 select * from sales_customer;
 
 /* listing corresponding SQL for finding corss-tab */
 select sum(total_price) as total_price
-from sales_customer
+from sales_customer;
 
 select name, sum(total_price) as total_price
 from sales_customer
-group by name
+group by name;
 
 select division, sum(total_price) as total_price
 from sales_customer
-group by division
+group by division;
 
 select name, division, sum(total_price) as total_price
 from sales_customer
-group by name, division
+group by name, division;
 
 /* creating cross-tab for item dimension */
 create table sales_item
 as
 select item_name, man_country, quantity
 from fact_table, item_dim
-where fact_table.item_key = item_dim.item_key
+where fact_table.item_key = item_dim.item_key;
 
 select * from sales_item;
 
 /* listing corresponding SQL for finding corss-tab */
 select sum(quantity) as total_quantity
-from sales_item
+from sales_item;
 
 select item_name, sum(quantity) as total_quantity
 from sales_item
-group by item_name
+group by item_name;
 
 select man_country, sum(quantity) as total_quantity
 from sales_item
-group by man_country
+group by man_country;
 
 select item_name, man_country, sum(quantity) as total_quantity
 from sales_item
-group by item_name, man_country
+group by item_name, man_country;
 
 /*
 	task5: finding at least 5 important DSS (Decision Support System) reports (one for each dimension)
