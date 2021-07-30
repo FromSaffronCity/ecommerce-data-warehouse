@@ -330,7 +330,7 @@ delimiter ',' csv header;
 
 ##### Bar Chart  
 
-![total_buyer vs. trans_type](https://github.com/FromSaffronCity/ecommerce-data-warehouse/blob/main/report/res/total_buyer vs. trans_type.svg?raw=true)  
+![total_buyer vs. trans_type](https://github.com/FromSaffronCity/ecommerce-data-warehouse/blob/main/report/res/total_buyer-vs-trans_type.svg?raw=true)  
 
 <div style="page-break-after: always;"></div>
 
@@ -351,7 +351,7 @@ delimiter ',' csv header;
 
 ##### Bar Chart  
 
-![total_buyer vs. division](https://github.com/FromSaffronCity/ecommerce-data-warehouse/blob/main/report/res/total_buyer vs. division.svg?raw=true)
+![total_buyer vs. division](https://github.com/FromSaffronCity/ecommerce-data-warehouse/blob/main/report/res/total_buyer-vs-division.svg?raw=true)
 
 <div style="page-break-after: always;"></div>
 
@@ -372,7 +372,7 @@ delimiter ',' csv header;
 
 ##### Bar Chart  
 
-![total_quantity vs. quarter](https://github.com/FromSaffronCity/ecommerce-data-warehouse/blob/main/report/res/total_quantity vs. quarter.svg?raw=true)  
+![total_quantity vs. quarter](https://github.com/FromSaffronCity/ecommerce-data-warehouse/blob/main/report/res/total_quantity-vs-quarter.svg?raw=true)  
 
 <div style="page-break-after: always;"></div>
 
@@ -393,7 +393,7 @@ delimiter ',' csv header;
 
 ##### bar Chart  
 
-![total_quantity vs. man_country](https://github.com/FromSaffronCity/ecommerce-data-warehouse/blob/main/report/res/total_quantity vs. man_country.svg?raw=true)  
+![total_quantity vs. man_country](https://github.com/FromSaffronCity/ecommerce-data-warehouse/blob/main/report/res/total_quantity-vs-man_country.svg?raw=true)  
 
 <div style="page-break-after: always;"></div>
 
@@ -414,5 +414,5 @@ delimiter ',' csv header;
 
 ##### Bar Chart  
 
-![total_price vs. district](https://github.com/FromSaffronCity/ecommerce-data-warehouse/blob/main/report/res/total_price vs. district.svg?raw=true)  
+![total_price vs. district](https://github.com/FromSaffronCity/ecommerce-data-warehouse/blob/main/report/res/total_price-vs-district.svg?raw=true)  
 
